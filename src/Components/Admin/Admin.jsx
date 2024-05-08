@@ -23,7 +23,7 @@ const Admin = (props) => {
   return (
     <>
     <Helmet>
-      <title>Admin | Quiz</title>
+      <title>Admin | SHub</title>
     </Helmet>
       <div className="admin-page">
         <Navigation setOpenLeftSideResponsive={setOpenLeftSideResponsive}></Navigation>

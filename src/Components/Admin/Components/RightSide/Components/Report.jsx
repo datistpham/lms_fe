@@ -95,7 +95,7 @@ const Report = () => {
   return (
     <>
       <Helmet>
-        <title>Report | Quiz</title>
+        <title>Report | SHub</title>
       </Helmet>
       <div className="fidfjksdsk" style={{ width: "50%" }}>
         <ClassMemberChart></ClassMemberChart>

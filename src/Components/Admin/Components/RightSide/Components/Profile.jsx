@@ -21,7 +21,7 @@ const Profile = (props) => {
   return (
     <>
       <Helmet>
-        <title>Profile | Quiz</title>
+        <title>Profile | SHub</title>
       </Helmet>
       <div
         className="fjskldfjskedjf"

@@ -20,7 +20,7 @@ const Settings = (props) => {
   return (
     <>
       <Helmet>
-        <title>Settings | Quiz</title>
+        <title>Settings | SHub</title>
       </Helmet>
       <div className="settings max-height">
         <Title></Title>

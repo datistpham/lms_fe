@@ -19,7 +19,7 @@ import {
   useParams,
 } from "react-router-dom";
 import { Share2 } from "../../../../Admin/Components/Term/Components/Side1";
-import {  useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import MEMBER_OF_CLASS from "../../../../../docs/graphql/query/query_member_of_class";
 import { Checkbox, CircularProgress } from "@mui/material";
 import GET_INFO_CLASS from "../../../../../docs/graphql/query/get_info_class";
@@ -47,6 +47,10 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import MyTerm from "./MyTerm";
 import ILearnt from "./ILearnt";
 import NotFoundSearch from "../../../../NotFound/NotFoundSearch";
+import Divider from "@mui/material/Divider";
+import { FaUser } from "react-icons/fa";
+import { BiTask } from "react-icons/bi";
+import { MdDynamicFeed } from "react-icons/md";
 
 const CheckUserJoinClassContext = createContext();
 export default function CheckUserJoinClass({ children }) {
@@ -97,78 +101,178 @@ const DetailClass = (props) => {
     >
       <Helmet>
         <title>
-          {`${data?.getinfoclass?.class_name} | Quiz` || "Loading..."}
+          {`${data?.getinfoclass?.class_name} | SHub` || "Loading..."}
         </title>
       </Helmet>
       <div className="wrapper-detail-class" style={{ background: "#f2f0f5" }}>
         <div
           className="detail-class"
-          style={{ background: "#f2f0f5" }}
+          style={{ background: "#f2f0f5", width: "100%" }}
         >
-          <Title1></Title1>
-          <br />
-          {role?.check === 1 && (
-            <Fragment>
-              <Navigation {...role}></Navigation>
-              <br />
-              <div className="wrap-main">
-                <Routes>
-                  <Route path="/">
-                    <Route
-                      path=""
-                      index
-                      element={
-                        <ListTerm
-                          can_edit_term={data?.getinfoclass?.perform}
-                        ></ListTerm>
-                      }
-                    ></Route>
-                    <Route
-                      path="members"
-                      element={<ListMember></ListMember>}
-                    ></Route>
-                    {role?.isOwner === true && (
-                      <Route
-                        path="request"
-                        element={
-                          <RequestJoinClass
-                            own_id_class={data?.getinfoclass?.own_id}
-                          ></RequestJoinClass>
-                        }
-                      ></Route>
-                    )}
-                    <Route path="*" element={<div className="jaeirjaioerwjerwiok"><NotFoundSearch></NotFoundSearch></div>}></Route>
-                  </Route>
-                </Routes>
-                <Side></Side>
-              </div>
-            </Fragment>
-          )}
-          {role?.check === 0 && (
+          <div style={{ width: "100%", display: "flex" }}>
             <div
               style={{
-                textAlign: "center",
-                fontSize: 20,
-                fontWeight: 600,
-                padding: 24,
+                width: 300,
+                borderRight: "1px solid #e7e7e7",
+                padding: 10,
+                minHeight: "100vh",
+                backgroundColor: "white",
               }}
             >
-              You're not member of this class
+              <Title1></Title1>
+              <div style={{ marginTop: 8, marginBottom: 8, fontSize: 14 }}>
+                Mã lớp: {data?.getinfoclass?.code_invite}
+              </div>
+              <div style={{ marginTop: 8, marginBottom: 8 }}>
+                <strong>Chia sẻ lớp học</strong>
+              </div>
+              <div
+                className="kfdfdaesfadfsadsfd"
+                style={{
+                  background: "#fff",
+                  borderRadius: 10,
+                  overflow: "hidden",
+                }}
+              >
+                <Share2
+                  link={`${window.location.origin}/join/class/${data?.getinfoclass?.code_invite}`}
+                ></Share2>
+              </div>
+              <div style={{ marginTop: 8, marginBottom: 8, fontSize: 14 }}>
+                Mô tả cho lớp học
+              </div>
+              <div style={{ marginTop: 8, marginBottom: 8, fontSize: 14 }}>
+                {data?.getinfoclass?.description}
+              </div>
+              <Divider />
+              <div style={{ marginTop: 8, marginBottom: 8, fontSize: 14 }}>
+                Danh mục
+              </div>
+              <Navigation {...role} />
             </div>
-          )}
-          {state?.is_invite === true && (
-            <Accept request_join_class={request_join_class}></Accept>
-          )}
+            <div
+              style={{
+                flex: 1,
+                borderRight: "1px solid #e7e7e7",
+                backgroundColor: "white",
+                padding: 10
+              }}
+            >
+              <Routes>
+                <Route path="/">
+                  <Route
+                    path=""
+                    index
+                    element={
+                      <ListTerm
+                        can_edit_term={data?.getinfoclass?.perform}
+                      ></ListTerm>
+                    }
+                  ></Route>
+                  <Route
+                    path="members"
+                    element={<ListMember />}
+                  ></Route>
+                  {role?.isOwner === true && (
+                    <Route
+                      path="request"
+                      element={
+                        <RequestJoinClass
+                          own_id_class={data?.getinfoclass?.own_id}
+                        ></RequestJoinClass>
+                      }
+                    ></Route>
+                  )}
+                  <Route
+                    path="*"
+                    element={
+                      <div className="jaeirjaioerwjerwiok">
+                        <NotFoundSearch></NotFoundSearch>
+                      </div>
+                    }
+                  ></Route>
+                </Route>
+              </Routes>
+            </div>
+            <div
+              style={{
+                width: 300,
+                borderRight: "1px solid #e7e7e7",
+                minHeight: "100vh",
+                backgroundColor: "white",
+              }}
+            ></div>
+          </div>
         </div>
       </div>
+      <br />
+      {role?.check === 1 && (
+        <Fragment>
+          <Navigation {...role} />
+          <br />
+          <div className="wrap-main">
+            <Routes>
+              <Route path="/">
+                <Route
+                  path=""
+                  index
+                  element={
+                    <ListTerm
+                      can_edit_term={data?.getinfoclass?.perform}
+                    ></ListTerm>
+                  }
+                ></Route>
+                <Route
+                  path="members"
+                  element={<ListMember></ListMember>}
+                ></Route>
+                {role?.isOwner === true && (
+                  <Route
+                    path="request"
+                    element={
+                      <RequestJoinClass
+                        own_id_class={data?.getinfoclass?.own_id}
+                      ></RequestJoinClass>
+                    }
+                  ></Route>
+                )}
+                <Route
+                  path="*"
+                  element={
+                    <div className="jaeirjaioerwjerwiok">
+                      <NotFoundSearch></NotFoundSearch>
+                    </div>
+                  }
+                ></Route>
+              </Route>
+            </Routes>
+            <Side></Side>
+          </div>
+        </Fragment>
+      )}
+      {role?.check === 0 && (
+        <div
+          style={{
+            textAlign: "center",
+            fontSize: 20,
+            fontWeight: 600,
+            padding: 24,
+          }}
+        >
+          You're not member of this class
+        </div>
+      )}
+      {state?.is_invite === true && (
+        <Accept request_join_class={request_join_class}></Accept>
+      )}
     </DetailClassContext.Provider>
   );
 };
 
 //
 
-const Accept= (props)=> {
-  const [accept, setAccept]= useState(()=> undefined)
+const Accept = (props) => {
+  const [accept, setAccept] = useState(() => undefined);
   return (
     <div>
       <div style={{ fontSize: 18, fontWeight: 600 }}>
@@ -176,9 +280,18 @@ const Accept= (props)=> {
       </div>
       <br />
       <button
-        disabled={accept=== undefined ? false : true  }
-        onClick={() => {props.request_join_class();setAccept(()=> false)}}
-        style={{ display: "flex", alignItems: "center", gap: 16, border: "none", outline: "none"}}
+        disabled={accept === undefined ? false : true}
+        onClick={() => {
+          props.request_join_class();
+          setAccept(() => false);
+        }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 16,
+          border: "none",
+          outline: "none",
+        }}
       >
         <div
           style={{
@@ -194,14 +307,12 @@ const Accept= (props)=> {
             fontWeight: 600,
           }}
         >
-          {
-            accept=== undefined ? "Accept" : "Submited"
-          }
+          {accept === undefined ? "Accept" : "Submited"}
         </div>
       </button>
     </div>
-  )
-}
+  );
+};
 
 //
 
@@ -211,9 +322,9 @@ const Title1 = (props) => {
   return (
     <div className="title-1111">
       <CTitle1></CTitle1>
-      {role?.check >= 1 && (
+      {/* {role?.check >= 1 && (
         <CTitle2 invite={invite} perform={perform}></CTitle2>
-      )}
+      )} */}
     </div>
   );
 };
@@ -223,14 +334,12 @@ const CTitle1 = (props) => {
   return (
     <div className="jifjdskfsdsassa">
       <div className="dfdijsdfd wrap-icon">
-        <GroupIcon
+        {/* <GroupIcon
           style={{ width: 40, height: 40 }}
           className="fsawjdfwesfdsa"
-        ></GroupIcon>
+        ></GroupIcon> */}
       </div>
-      <div className="gkaskaskasla">
-        {data?.getinfoclass?.class_name || "_"}
-      </div>
+      <strong>{data?.getinfoclass?.class_name || "_"}</strong>
     </div>
   );
 };
@@ -434,36 +543,64 @@ export const C3 = (props) => {
 const Navigation = (props) => {
   const { id_class } = useContext(DetailClassContext);
   return (
-    <div className="navigation">
-      <div className="wrap-navigation">
+    <div
+      className="navigation"
+      style={{ flexDirection: "column", alignItems: "flex-start" }}
+    >
+      <div
+        className="wrap-navigation"
+        style={{ padding: "10px 0", justifyContent: "start" }}
+      >
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "active-aaa" : "inactive-aaa"
+          }
+          to={`/class/${id_class}/feed`}
+        >
+          <MdDynamicFeed />
+          &nbsp;&nbsp;Bảng tin
+        </NavLink>
+      </div>
+      <div
+        className="wrap-navigation"
+        style={{ padding: "10px 0", justifyContent: "start" }}
+      >
         <NavLink
           className={({ isActive }) =>
             isActive ? "active-aaa" : "inactive-aaa"
           }
           to={`/class/${id_class}/`}
         >
-          Terms
+          <BiTask />
+          &nbsp;&nbsp;Bài tập
         </NavLink>
       </div>
-      <div className="wrap-navigation">
+      <div
+        className="wrap-navigation"
+        style={{ padding: "10px 0", justifyContent: "start" }}
+      >
         <NavLink
           className={({ isActive }) =>
             isActive ? "active-aaa" : "inactive-aaa"
           }
           to={`/class/${id_class}/members`}
         >
-          Members
+          <FaUser />
+          &nbsp;&nbsp;Thành viên
         </NavLink>
       </div>
       {props?.isOwner === true && (
-        <div className="wrap-navigation">
+        <div
+          className="wrap-navigation"
+          style={{ padding: "10px 0", justifyContent: "start" }}
+        >
           <NavLink
             className={({ isActive }) =>
               isActive ? "active-aaa" : "inactive-aaa"
             }
             to={`/class/${id_class}/request`}
           >
-            Request
+            Yêu cầu
           </NavLink>
         </div>
       )}
@@ -486,7 +623,7 @@ const ListTerm = (props) => {
   return (
     <div className="wp">
       <div className="list-item-term">
-        <div style={{ fontSize: 18, fontWeight: 600 }}>Terms of class</div>
+        <div style={{ fontSize: 18, fontWeight: 600 }}>Bài tập</div>
         {data?.get_term_of_class?.length > 0 &&
           data?.get_term_of_class?.map((item, key) => (
             <ComponentTerm
@@ -532,6 +669,7 @@ const ComponentTerm = (props) => {
         background: "#fff",
         padding: 10,
         flexDirection: "column",
+        backgroundColor: "#f2f0f5"
       }}
       onClick={() =>
         navigate(
@@ -619,8 +757,10 @@ const ListMember = (props) => {
     return (
       <div className="wp">
         <div className="list-item-member">
-          <div style={{ fontSize: 18, fontWeight: 600 }}>Members in class</div>
+          <div style={{ fontSize: 18, fontWeight: 600 }}>Thành viên lớp học ({data?.member_of_class?.length || 0})</div>
           <br />
+          <Divider />
+          <br/>
           {data?.member_of_class?.length > 0 &&
             data?.member_of_class?.map((item, key) => (
               <DetailMember
@@ -647,7 +787,7 @@ const RequestJoinClass = (props) => {
   });
   return (
     <div className="ffdsfadsfsads wp" style={{ flex: "1 1 0" }}>
-      <div style={{ fontSize: 18, fontWeight: 600 }}>Request join class</div>
+      <div style={{ fontSize: 18, fontWeight: 600 }}>Yêu cầu tham gia lớp học</div>
       <br />
       {data?.request_join_class?.length > 0 &&
         data?.request_join_class?.map((item, key) => (
@@ -658,7 +798,7 @@ const RequestJoinClass = (props) => {
           ></DetailRequest>
         ))}
       {data?.request_join_class?.length <= 0 && (
-        <div>No any request join your class</div>
+        <div>Chưa có yêu cầu nào tham gia lớp học</div>
       )}
     </div>
   );
@@ -810,9 +950,9 @@ const DetailMember = (props) => {
           className="fkaodsfksasfs"
           style={{ display: "flex", flexDirection: "column" }}
         >
-          {parseInt(props?.role) === 3 && <div>Admin of class</div>}
-          {parseInt(props?.role) <= 1 && <div>Member</div>}
-          {parseInt(props?.role) === 2 && <div>Manage of class</div>}
+          {parseInt(props?.role) === 3 && <div>Giáo viên</div>}
+          {parseInt(props?.role) <= 1 && <div>Thành viên</div>}
+          {parseInt(props?.role) === 2 && <div>Giáo viên</div>}
           <div style={{ fontSize: 20 }}>
             <strong>{props?.displayName}</strong>
           </div>
@@ -832,7 +972,7 @@ const DetailMember = (props) => {
           {props?.is_admin === true && parseInt(props?.role) === 1 && (
             <Tooltip
               placement="top"
-              title={<div style={{ fontSize: 18 }}>Upgrade manage class</div>}
+              title={<div style={{ fontSize: 18 }}>Đưa lên làm giáo viên</div>}
             >
               <div
                 onClick={(e) => {
@@ -888,7 +1028,7 @@ const DetailMember = (props) => {
           {parseInt(props?.role_user) > parseInt(props?.role) && (
             <Tooltip
               placement="top"
-              title={<div style={{ fontSize: 18 }}>Delete from class</div>}
+              title={<div style={{ fontSize: 18 }}>Xoá khỏi lớp học</div>}
             >
               <div
                 onClick={(e) => {

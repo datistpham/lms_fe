@@ -39,7 +39,7 @@ const Learn = (props) => {
   return (
     <>
       <Helmet>
-        <title>{`Learn: ${props?.get_term?.title} | Quiz`}</title>
+        <title>{`Learn: ${props?.get_term?.title} | SHub`}</title>
       </Helmet>
       <div className="learn">
         <div className="header-learn" style={{ position: "relative" }}>

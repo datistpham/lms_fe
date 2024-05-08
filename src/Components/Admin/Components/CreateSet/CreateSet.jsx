@@ -29,7 +29,7 @@ const CreateSet = (props) => {
     <>
       <Helmet async={true} prioritizeSeoTags={true}>
         <title>
-          {i?.title?.length > 0 ? i?.title : `Create new term | Quiz`}
+          {i?.title?.length > 0 ? i?.title : `Create new term | SHub`}
         </title>
       </Helmet>
       <div className="wrapper-create-set">

@@ -15,7 +15,7 @@ const Activities = (props) => {
   return (
     <div style={{ minHeight: "calc(100vh - 56px)", background: "#f2f0f5" }}>
       <Helmet>
-        <title>Activities | Quiz</title>
+        <title>Activities | SHub</title>
       </Helmet>
       <div className="a-activities max-height">
         <MenuLevel2></MenuLevel2>

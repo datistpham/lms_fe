@@ -31,7 +31,7 @@ const Test = (props) => {
   return (
     <>
       <Helmet>
-        <title>{`Test: ${props?.get_term?.title} | Quiz`}</title>
+        <title>{`Test: ${props?.get_term?.title} | SHub`}</title>
       </Helmet>
       <div className="test">
         <div className="header-test-fake"></div>

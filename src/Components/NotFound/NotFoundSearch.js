@@ -47,7 +47,7 @@ const NotFoundSearch = () => {
                 fontWeight: 600,
               }}
             >
-              We didn't find any results
+              Không tìm thấy kết quả phù hợp nào
             </span>
           </div>
           <div
@@ -63,8 +63,7 @@ const NotFoundSearch = () => {
               dir="auto"
               style={{ textAlign: "center" }}
             >
-              Make sure everything is spelled correctly or try different
-              keywords.
+              Đảm bảo mọi thứ đều viết đúng chính tả hoặc thử các từ khóa khác.
             </span>
           </div>
         </div>

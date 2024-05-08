@@ -8,7 +8,7 @@ export const NeedAuthenticate = (props) => {
   return (
     <>
       <Helmet>
-        <title>Login | Quiz</title>
+        <title>Login | SHub</title>
       </Helmet>
       <div className="need-authenticate">
           <div className="wrapper-need-authenticate">

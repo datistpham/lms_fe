@@ -43,9 +43,9 @@ const App = (props) => {
       <Fragment>
         <Router>
           <Routes>
-            <Route path="/*" element={<Home></Home>}></Route>
+            <Route path="/*" element={<Home />}></Route>
             {auth === true && (
-              <Route path="/admin/*" element={<Suspense fallback={<></>}><Admin></Admin></Suspense>}></Route>
+              <Route path="/admin/*" element={<Suspense fallback={<></>}><Admin /></Suspense>}></Route>
             )}
             {auth === false && (
               <Route

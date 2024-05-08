@@ -24,7 +24,7 @@ const FlashCards = (props) => {
   return (
     <>
       <Helmet>
-        <title>Flashcards | Quiz</title>
+        <title>Flashcards | SHub</title>
       </Helmet>
       <div className="flashcards">
         <div className="side-left-flashcards">

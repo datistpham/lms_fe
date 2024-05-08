@@ -29,7 +29,7 @@ const Explore = () => {
   return (
     <>
       <Helmet>
-        <title>Explore | Quiz</title>
+        <title>Explore | SHub</title>
       </Helmet>
       <div
         className="explore-admin"

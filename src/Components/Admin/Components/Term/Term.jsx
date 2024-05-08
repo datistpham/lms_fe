@@ -57,7 +57,7 @@ const Term = (props) => {
           :
           <TermContext.Provider value={{ data }}>
             <Helmet>
-              <title>Term | Quiz</title>
+              <title>Term | SHub</title>
             </Helmet>
             <div
               className={"wrapper-term"}
@@ -116,7 +116,7 @@ const Term = (props) => {
     return (
       <TermContext.Provider value={{ data }}>
         <Helmet>
-          <title>Term | Quiz</title>
+          <title>Term | SHub</title>
         </Helmet>
         <div
           className={"wrapper-term"}

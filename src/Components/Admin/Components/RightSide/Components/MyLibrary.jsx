@@ -15,7 +15,7 @@ const MyLibrary = () => {
   return (
     <>
       <Helmet>
-        <title>My library | Quiz</title>
+        <title>My library | SHub</title>
       </Helmet>
       <div className="fdksddsgsrte" style={{width: "100%", padding: 24}}>
         <Header></Header>

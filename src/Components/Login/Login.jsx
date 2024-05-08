@@ -21,7 +21,7 @@ const Login = (props) => {
       }}
     >
       <Helmet>
-        <title>Login | Quiz</title>
+        <title>Login | SHub</title>
       </Helmet>
       <div style={{ fontSize: 18, fontWeight: 600 }}>
         You need to login to continue

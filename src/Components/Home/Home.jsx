@@ -62,39 +62,40 @@ const Home = (props) => {
           <Routes>  
             {
               !location?.pathname?.includes("/admin") &&
-              <Route path="/" index element={<Main></Main>}></Route>
+              <Route path="/" index element={<Classes />} />
             }
             {
               auth=== true &&
               <>
-                <Route path="/activities/*" element={<Suspense fallback={<div>Loading...</div>}><Activities /></Suspense>} ></Route>
-                <Route path="/classes/*" element={<Classes></Classes>}></Route>
-                <Route path="/schedule/*" element={<WeekTimetable />}></Route>
-                <Route path="/create-set" element={<CreateSet></CreateSet>}></Route>
-                <Route path="/create-quiz" element={<></>}></Route>
-                <Route path="/create-class" element={<CreateClass />}></Route>
-                <Route path="/term/:id_term/:title_term/*" element={<Term></Term>}></Route>
-                <Route path="/join/class/:code_invite" element={<JoinClass></JoinClass>}></Route>
+                <Route path="/activities/*" element={<Suspense fallback={<div>Loading...</div>}><Activities /></Suspense>}  />
+                <Route path="/classes/*" element={<Classes></Classes>} />
+                <Route path="/schedule/*" element={<WeekTimetable />} />
+                <Route path="/create-set" element={<CreateSet></CreateSet>} />
+                <Route path="/create-quiz" element={<></>} />
+                <Route path="/create-class" element={<CreateClass />} />
+                <Route path="/class/create" element={<CreateClass />} />
+                <Route path="/term/:id_term/:title_term/*" element={<Term></Term>} />
+                <Route path="/join/class/:code_invite" element={<JoinClass></JoinClass>} />
                 <Route path="/new-question/:id_quiz" element={<CreateQuizMain />} />
                 <Route path="/create-quiz/:id_quiz/*" element={<CreateQuiz />} />
                 <Route path="/edit-term/:id_term" element={<EditTerm />} />
-                <Route path="/*" element={<NotFound404></NotFound404>}></Route>
+                <Route path="/*" element={<NotFound404></NotFound404>} />
               </>
             }
             {
               auth=== false && 
               <>
-                <Route path="/activities/*" element={<NeedAuthenticate></NeedAuthenticate>}></Route>
-                <Route path="/classes/*" element={<NeedAuthenticate></NeedAuthenticate>}></Route>
-                <Route path="/term/:id_term/:title_term/*" element={<Term></Term>}></Route>
-                <Route path="/*" element={<NotFound404></NotFound404>}></Route>
+                <Route path="/activities/*" element={<NeedAuthenticate></NeedAuthenticate>} />
+                <Route path="/classes/*" element={<NeedAuthenticate></NeedAuthenticate>} />
+                <Route path="/term/:id_term/:title_term/*" element={<Term></Term>} />
+                <Route path="/*" element={<NotFound404></NotFound404>} />
               </>
             }
-            <Route path="/class/:id_class/*" element={<DetailClass></DetailClass>}></Route>
-            <Route path="/settings" element={<Settings></Settings>}></Route>
-            <Route path="/search" element={<Search></Search>}></Route>
-            <Route path="/profile/:id_user/*" element={<MainProfile></MainProfile>}></Route>
-            <Route path="/*" element={<NotFound404></NotFound404>}></Route>
+            <Route path="/class/:id_class/*" element={<DetailClass></DetailClass>} />
+            <Route path="/settings" element={<Settings></Settings>} />
+            <Route path="/search" element={<Search></Search>} />
+            <Route path="/profile/:id_user/*" element={<MainProfile></MainProfile>} />
+            <Route path="/*" element={<NotFound404></NotFound404>} />
 
           </Routes>
         

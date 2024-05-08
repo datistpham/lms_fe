@@ -15,7 +15,7 @@ const Setting = () => {
   return (
     <>
       <Helmet>
-        <title>Settings | Quiz </title>
+        <title>Settings | SHub </title>
       </Helmet>
       <div className="setting-admin">
         <div

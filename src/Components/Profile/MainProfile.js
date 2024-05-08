@@ -73,7 +73,7 @@ const Header = (props) => {
     return (
       <Fragment>
         <Helmet>
-          <title>{data?.get_profile_user?.displayName || "Loading..."} | Quiz</title>
+          <title>{data?.get_profile_user?.displayName || "Loading..."} | SHub</title>
         </Helmet>
         <div
           className="fjfgfdggf"

@@ -17,7 +17,7 @@ const Main = (props) => {
   return (
     <>
       <Helmet>
-        <title>Home | Quiz</title>
+        <title>Home | SHub</title>
       </Helmet>
       <div className="main-app max-height">
         <div className="container-1">

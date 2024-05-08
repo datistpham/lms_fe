@@ -26,7 +26,7 @@ const Search = (props) => {
       <Helmet>
         <title>
           {queryString?.get("query_search")
-            ? queryString?.get("query_search") + " | Quiz"
+            ? queryString?.get("query_search") + " | SHub"
             : "Search"}
         </title>
       </Helmet>

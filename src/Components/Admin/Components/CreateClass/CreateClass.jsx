@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import Checkbox from "@mui/material/Checkbox";
 import "./style.sass";
@@ -11,6 +11,9 @@ import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 import { useDropzone } from "react-dropzone";
 import { CloudinaryContext, Image } from "cloudinary-react";
+import { Button, TextField } from "@mui/material";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
 const Container = styled.div`
   border: 2px dashed #ccc;
   border-radius: 10px;
@@ -57,7 +60,11 @@ const CoverImageUploader = ({ onImageSelect, imageSelect }) => {
     <CloudinaryContext cloudName="cockbook">
       <Container {...getRootProps()}>
         <input {...getInputProps()} />
-        <img style={{width: 40, height: 40}} alt="" src='https://shub.edu.vn/images/illustrations/class_add.svg'/> 
+        <img
+          style={{ width: 40, height: 40 }}
+          alt=""
+          src="https://shub.edu.vn/images/illustrations/class_add.svg"
+        />
         <p
           style={{
             color: "#1e88e5",
@@ -66,11 +73,13 @@ const CoverImageUploader = ({ onImageSelect, imageSelect }) => {
             marginTop: 12,
           }}
         >
-          Add Cover Image
+          Thêm ảnh bìa
         </p>
-        <p style={{ marginTop: 12 }}>Recommended dimensions: 2100px x 900px</p>
+        <p style={{ marginTop: 12 }}>
+          Ảnh bìa khuyến nghị 2100px chiều dài và 900px chiều cao
+        </p>
       </Container>
-      <img src={imageSelect} style={{width: "100%"}} alt="" />
+      <img src={imageSelect} style={{ width: "100%" }} alt="" />
     </CloudinaryContext>
   );
 };
@@ -79,10 +88,10 @@ const CreateClass = (props) => {
   return (
     <>
       <Helmet>
-        <title>Join class | Quiz</title>
+        <title>Tạo lớp học</title>
       </Helmet>
       <div className="create-class">
-        <CreateClassMain></CreateClassMain>
+        <CreateClassMain />
         {/* <JoinClass></JoinClass> */}
       </div>
     </>
@@ -91,7 +100,28 @@ const CreateClass = (props) => {
 
 const CreateClassMain = (props) => {
   // eslint-disable-next-line
-  const [imageSelect, setImageSelect]= useState()
+  const [listTypeClass, setListTypeClass] = useState([
+    { id: 1, name: "Toán" },
+    { id: 2, name: "Số học" },
+    { id: 3, name: "Đại số" },
+    { id: 4, name: "Đại số và giải tích" },
+    { id: 5, name: "Giải tích" },
+    { id: 6, name: "Hình học" },
+    { id: 7, name: "Ngữ văn" },
+    { id: 8, name: "Tiếng Anh" },
+    { id: 9, name: "Vật lý" },
+    { id: 10, name: "Hoá học" },
+    { id: 11, name: "Sinh học" },
+    { id: 12, name: "Lịch sử" },
+    { id: 13, name: "Địa lý" },
+    { id: 14, name: "Tin học" },
+    { id: 15, name: "GDCN" },
+    { id: 16, name: "Công nghệ" },
+    { id: 17, name: "Khác" },
+  ]);
+  const [disableButton, setDisableButton]= useState(true)
+  const [selectedTypeClass, setSelectedTypeClass] = useState(1);
+  const [imageSelect, setImageSelect] = useState();
   const [createClass, { data, loading, error }] = useMutation(CREATECLASS, {});
   const { user } = useContext(UserContext);
   const [classData, setClassData] = useState(() => ({
@@ -104,45 +134,116 @@ const CreateClassMain = (props) => {
         ...classData,
         own_id: user?.data?.userLogin?.uid,
         id_class: uuidv4(),
-        cover_image: imageSelect
+        cover_image: imageSelect,
       },
     });
     window.location.href = `${window.location.origin}/class/${data.createClass.id_class}/`;
   };
+
+  useEffect(()=> {
+    if(classData.class_name?.length <= 0 || !classData.class_name) {
+      setDisableButton(true)
+    }
+    else {
+      setDisableButton(false)
+    }
+  }, [classData])
+
   return (
-    <div className="fsjdiawsisfjraw">
-      <Title title={"Tên lớp học"}></Title>
-      <Inp
-        setClassData={setClassData}
-        placeholder={"Ví dụ, Lớp thầy ngọc 2015..."}
-        mean="Class name"
-      ></Inp>
-      <br></br>
-      <div></div>
-      <br></br>
-      <CoverImageUploader imageSelect={imageSelect} onImageSelect={setImageSelect} />
-      <br></br>
-      <div></div>
-      <br></br>
-      <Inp2
-        setClassData={setClassData}
-        placeholder={"Môt tả lớp học"}
-        mean={"Mô tả"}
-      ></Inp2>
-      <div className="wrapper-permission-of-class">
-        <Rule
-          classData={classData}
-          setClassData={setClassData}
-          t={"Cho phép học sinh thêm / xoá bài tập"}
-        ></Rule>
-        <Rule2
-          classData={classData}
-          setClassData={setClassData}
-          t={"Cho phép học sinh mời người lạ"}
-        ></Rule2>
-      </div>
-      <div className="create-class" onClick={() => makeClass()}>
-        Tạo lớp
+    <div
+      style={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <div
+        style={{ width: "100%", display: "flex", gap: 10, maxWidth: "1024px" }}
+      >
+        <div className="fsjdiawsisfjraw" style={{ flex: 1 }}>
+          <div style={{ marginBottom: 12 }}>
+            <strong>Tên lớp học</strong>
+          </div>
+          <Inp
+            setClassData={setClassData}
+            placeholder={"Ví dụ, Lớp thầy ngọc 2015..."}
+            mean="Class name"
+          ></Inp>
+          <br></br>
+          <div></div>
+          <br></br>
+          <CoverImageUploader
+            imageSelect={imageSelect}
+            onImageSelect={setImageSelect}
+          />
+          <br></br>
+          <div></div>
+          <br></br>
+          <Inp2
+            setClassData={setClassData}
+            placeholder={"Môt tả lớp học"}
+            mean={"Mô tả"}
+          />
+          <br></br>
+          <div></div>
+          <br></br>
+          <Stack
+            direction="row"
+            flexWrap={"wrap"}
+            spacing={1}
+            style={{ flexWrap: "wrap" }}
+          >
+            {listTypeClass?.map((item, key) => (
+              <Chip
+                onClick={() => {
+                  setSelectedTypeClass(item.id);
+                }}
+                key={key}
+                clickable
+                label={item.name}
+                variant="contained"
+                style={{
+                  padding: "20px 14px",
+                  borderRadius: 80,
+                  marginRight: 10,
+                  marginBottom: 8,
+                  backgroundColor:
+                    parseInt(item.id) === parseInt(selectedTypeClass)
+                      ? "#2e89ff"
+                      : "#f2f0f5",
+                  color:
+                    parseInt(item.id) === parseInt(selectedTypeClass)
+                      ? "#fff"
+                      : "#000",
+                }}
+              />
+            ))}
+          </Stack>
+          <div className="wrapper-permission-of-class">
+            <Rule
+              classData={classData}
+              setClassData={setClassData}
+              t={"Cho phép học sinh thêm / xoá bài tập"}
+            ></Rule>
+            <Rule2
+              classData={classData}
+              setClassData={setClassData}
+              t={"Phê duyệt học sinh"}
+            ></Rule2>
+          </div>
+        </div>
+        <div style={{ width: 300 }}>
+          <Button disabled={disableButton} style={{height: 60, borderRadius: 10, textTransform: "unset"}} variant={"contained"} onClick={() => makeClass()} fullWidth>
+            Tạo lớp
+          </Button>
+          <div></div>
+          <br />
+          <div></div>
+          <div style={{fontSize: 14}}>
+            Bạn phải nhập đầy đủ các trường để tạo lớp (<span style={{color: "red"}}>*</span>)
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -190,7 +291,7 @@ const Rule2 = (props) => {
             invite: !props?.classData?.invite,
           }))
         }
-      ></Checkbox>
+      />
       <div className="kfjaoawdada">{props?.t}</div>
     </div>
   );
@@ -198,9 +299,10 @@ const Rule2 = (props) => {
 
 const Inp = (props) => {
   return (
-    <div className="inp-12">
-      <input
+    <div style={{ width: "100%", backgroundColor: "white" }}>
+      <TextField
         type="text"
+        fullWidth
         value={props?.value}
         onChange={(e) =>
           props?.setClassData((prev) => ({
@@ -208,18 +310,18 @@ const Inp = (props) => {
             class_name: e.target.value,
           }))
         }
-        className="kprjekpore erigihdkjsnd"
+        className=""
         placeholder={props?.placeholder}
       />
-      {/* <div className="fdefdkgsefda">{props?.mean}</div> */}
     </div>
   );
 };
 const Inp2 = (props) => {
   return (
-    <div className="inp-12">
-      <input
+    <div style={{ width: "100%" }}>
+      <TextField
         type="text"
+        fullWidth
         value={props?.value}
         onChange={(e) =>
           props?.setClassData((prev) => ({
@@ -227,7 +329,6 @@ const Inp2 = (props) => {
             description: e.target.value,
           }))
         }
-        className="kprjekpore erigihdkjsnd"
         placeholder={props?.placeholder}
       />
       {/* <div className="fdefdkgsefda">{props?.mean}</div> */}
